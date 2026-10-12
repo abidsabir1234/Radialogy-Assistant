@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Login — Radiology Assistant{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-logo">
+            <i class="fa-solid fa-radiation"></i>
+        </div>
+        <h2 class="auth-title">Welcome Back</h2>
+        <p class="auth-sub">Sign in to your Radiology Assistant account</p>
+
+        {% if error %}
+        <div class="alert alert-error">
+            <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+        </div>
+        {% endif %}
+        {% if success %}
+        <div class="alert alert-success">
+            <i class="fa-solid fa-circle-check"></i> {{ success }}
+        </div>
+        {% endif %}
+
+        <form method="POST" class="auth-form" id="login-form">
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <div class="input-wrap">
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                    <input type="email" name="email" id="email"
+                           class="form-input" placeholder="doctor@hospital.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-wrap">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" name="password" id="password"
+                           class="form-input" placeholder="••••••••" required>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary full-width" id="login-btn">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In
+            </button>
+        </form>
+
+        <p class="auth-switch">
+            Don't have an account?
+            <a href="{{ url_for('auth.signup') }}">Create account</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

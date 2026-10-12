@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — Radiology Assistant{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+
+    <!-- ── Top Bar ───────────────────────────── -->
+    <div class="dash-topbar">
+        <div>
+            <h1 class="dash-title">Diagnostic <span class="gradient-text">Dashboard</span></h1>
+            <p class="dash-sub">Real-time gesture-controlled radiology imaging • MobileNetV2 v2.8class</p>
+        </div>
+
+        <div class="topbar-right">
+            <!-- Gesture Status Badge -->
+            <div class="gesture-badge" id="gesture-badge">
+                <div class="badge-indicator" id="badge-indicator"></div>
+                <div>
+                    <div class="badge-label">Active Gesture</div>
+                    <div class="badge-gesture" id="gesture-text">INITIALIZING…</div>
+                </div>
+                <div class="badge-conf" id="badge-conf">--%</div>
+            </div>
+
+            <!-- Upload Button -->
+            <form action="{{ url_for('main.upload') }}" method="post" enctype="multipart/form-data" id="upload-form">
+                <input type="file" name="image" id="img-input" accept="image/*" style="display:none"
+                    onchange="this.form.submit()">
+                <button type="button" class="btn-primary" id="upload-btn"
+                    onclick="document.getElementById('img-input').click()">
+                    <i class="fa-solid fa-upload"></i> Upload Scan
+                </button>
+            </form>
+
+            <!-- Reset transforms -->
+            <button class="btn-outline-sm" id="reset-btn" onclick="resetTransforms()">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+        </div>
+    </div>
+
+    <!-- ── Feeds Grid ─────────────────────────── -->
+    <div class="feeds-grid">
+        <!-- Camera Feed -->
+        <div class="feed-card">
+            <div class="feed-header">
+                <span class="feed-title">
+                    <span class="live-dot"></span> Hand Tracking
+                </span>
+                <span class="feed-meta" id="cam-fps">—</span>
+            </div>
+            <div class="feed-body">
+                <img id="video-feed" src="{{ url_for('main.video_feed') }}" alt="Camera feed" class="feed-img"
+                    onerror="handleFeedError(this, '{{ url_for('main.video_feed') }}')">
+            </div>
+            <div class="feed-footer">
+                <span><i class="fa-solid fa-microchip"></i> Mediapipe + MobileNetV2</span>
+                <span class="text-muted" id="action-text">Waiting for gesture…</span>
+            </div>
+        </div>
+
+        <!-- Transform Feed — always stream, overlay shown when no image -->
+        <div class="feed-card">
+            <div class="feed-header">
+                <span class="feed-title">
+                    <span class="live-dot accent"></span> Diagnostic Output
+                </span>
+                <span class="feed-meta" id="tf-meta">Gesture-controlled</span>
+            </div>
+            <div class="feed-body" style="position:relative;">
+                <!-- Always-on stream -->
+                <img id="transform-feed" src="{{ url_for('main.transform_feed') }}" alt="Transformed scan"
+                    class="feed-img" onerror="handleFeedError(this, '{{ url_for('main.transform_feed') }}')">
+
+                <!-- Download button (appears when hand moves aside) -->
+                <a href="{{ url_for('main.download_scan') }}" class="btn-primary" id="download-btn"
+                    style="position:absolute; top:15px; right:15px; display:none; z-index:10; box-shadow:0 3px 8px rgba(0,0,0,0.5); font-size:1.1rem; padding:0.4rem 0.6rem; text-decoration:none; border-radius:6px;">
+                    <i class="fa-solid fa-download"></i>
+                </a>
+
+                <!-- Upload overlay — shown when no image is uploaded yet -->
+                <div id="upload-overlay" class="upload-overlay"
+                    style="display: {% if has_image %}none{% else %}flex{% endif %};">
+                    <i class="fa-solid fa-x-ray" style="font-size:3rem;color:#1e3050;margin-bottom:1rem;"></i>
+                    <p style="color:#607898;text-align:center;">Upload an MRI or X-Ray scan<br>to begin gesture control
+                    </p>
+                    <button class="btn-primary" style="margin-top:1.5rem"
+                        onclick="document.getElementById('img-input').click()">
+                        <i class="fa-solid fa-upload"></i> Upload Now
+                    </button>
+                </div>
+            </div>
+            <div class="feed-footer">
+                <span><i class="fa-solid fa-sliders"></i> Real-time transforms</span>
+                <span class="text-muted" id="transform-state">—</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Debug HUD ──────────────────────────── -->
+    <div class="debug-section">
+        <div class="debug-header" onclick="toggleDebug()">
+            <span><i class="fa-solid fa-chart-bar"></i> Probability HUD</span>
+            <span class="debug-toggle" id="debug-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+        </div>
+        <div class="debug-body" id="debug-body" style="display:none">
+            <div class="prob-grid" id="prob-grid">
+                <!-- populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Gesture Guide ──────────────────────── -->
+    <div class="guide-section">
+        <h3 class="section-title"><i class="fa-solid fa-hand"></i> 8-Gesture Control Map</h3>
+        <div class="guide-grid">
+            {% set gestures = [
+            ('BRIGHT_UP', 'Thumb Up', 'Brightness ▲', 'primary'),
+            ('BRIGHT_DOWN', 'Pinky Up', 'Brightness ▼', 'primary'),
+            ('ZERO', 'Fist', 'Reset All', 'accent'),
+            ('ONE', 'Index Finger Only', 'Zoom In', 'info'),
+            ('TWO', 'V-Sign (2 fingers)','Rotate +2°', 'info'),
+            ('THREE', '3 Fingers Up', 'Gaussian Blur', 'warn'),
+            ('FOUR', '4 Fingers Up', 'Zoom Out', 'info'),
+            ('FIVE', 'Open Palm', 'Grayscale Toggle', 'warn'),
+            ] %}
+            {% for cls, hand, action, color in gestures %}
+            <div class="guide-card" id="guide-{{ cls }}">
+                <div class="guide-img-wrap">
+                    <img class="guide-gesture-img gesture-photo"
+                        src="{{ url_for('static', filename='images/gestures/gesture_' + cls.lower() + '.png') }}"
+                        alt="{{ hand }}">
+                </div>
+                <div class="guide-class {{ color }}">{{ cls }}</div>
+                <div class="guide-hand">{{ hand }}</div>
+                <div class="guide-action">{{ action }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // ── Labels (alphabetical = Keras default order) ──────────
+    const LABELS = ['BRIGHT_DOWN', 'BRIGHT_UP', 'FIVE', 'FOUR', 'ONE', 'THREE', 'TWO', 'ZERO'];
+    let debugOpen = false;
+    let lastGesture = '';
+    let frameCount = 0;
+    let lastFpsTime = Date.now();
+
+    // ── Build probability bars ───────────────────────────────
+    function buildProbGrid() {
+        const grid = document.getElementById('prob-grid');
+        grid.innerHTML = LABELS.map(l => `
+        <div class="prob-row">
+            <div class="prob-label">${l}</div>
+            <div class="prob-bar-bg">
+                <div class="prob-bar-fill" id="bar-${l}"></div>
+            </div>
+            <div class="prob-val" id="val-${l}">0%</div>
+        </div>
+    `).join('');
+    }
+    buildProbGrid();
+
+    // ── Toggle debug HUD ────────────────────────────────────
+    function toggleDebug() {
+        debugOpen = !debugOpen;
+        document.getElementById('debug-body').style.display = debugOpen ? 'grid' : 'none';
+        document.getElementById('debug-arrow').innerHTML =
+            debugOpen ? '<i class="fa-solid fa-chevron-up"></i>'
+                : '<i class="fa-solid fa-chevron-down"></i>';
+    }
+
+    // ── Gesture status poll ─────────────────────────────────
+    async function pollGesture() {
+        try {
+            const res = await fetch('/gesture_status');
+            const data = await res.json();
+
+            const gesture = data.gesture;
+            const conf = data.confidence;
+            const action = data.action || '';
+
+            // Badge update
+            document.getElementById('gesture-text').textContent = gesture;
+            document.getElementById('badge-conf').textContent = conf + '%';
+            document.getElementById('action-text').textContent = action || 'No action';
+
+            // Badge colour
+            const badge = document.getElementById('gesture-badge');
+            const dot = document.getElementById('badge-indicator');
+            if (gesture === 'NONE' || gesture === 'UNCERTAIN') {
+                badge.classList.remove('active');
+                dot.classList.remove('green');
+            } else {
+                badge.classList.add('active');
+                dot.classList.add('green');
+            }
+
+            // Toggle Upload Overlay based on if image exists
+            const overlay = document.getElementById('upload-overlay');
+            if (overlay) {
+                overlay.style.display = data.has_image ? 'none' : 'flex';
+            }
+
+            // Toggle Download Button
+            const downloadBtn = document.getElementById('download-btn');
+            if (downloadBtn) {
+                if (data.has_image && (gesture === 'NONE' || gesture === 'UNCERTAIN')) {
+                    downloadBtn.style.display = 'inline-block';
+                } else {
+                    downloadBtn.style.display = 'none';
+                }
+            }
+
+            // Highlight active guide card
+            if (gesture !== lastGesture) {
+                document.querySelectorAll('.guide-card').forEach(c => c.classList.remove('active-gesture'));
+                const card = document.getElementById('guide-' + gesture);
+                if (card) card.classList.add('active-gesture');
+                lastGesture = gesture;
+            }
+
+            // Probability bars
+            if (debugOpen && data.scores) {
+                data.scores.forEach((pct, i) => {
+                    const lbl = LABELS[i];
+                    const bar = document.getElementById('bar-' + lbl);
+                    const val = document.getElementById('val-' + lbl);
+                    if (bar) { bar.style.width = pct + '%'; }
+                    if (val) { val.textContent = pct + '%'; }
+                });
+            }
+
+            // FPS counter
+            frameCount++;
+            const now = Date.now();
+            const diff = (now - lastFpsTime) / 1000;
+            if (diff >= 1.0) {
+                document.getElementById('cam-fps').textContent = Math.round(frameCount / diff) + ' fps';
+                frameCount = 0;
+                lastFpsTime = now;
+            }
+
+        } catch (e) { /* network hiccup, ignore */ }
+    }
+    setInterval(pollGesture, 100);   // 10 polls/sec
+
+    // ── Reset transforms ────────────────────────────────────
+    async function resetTransforms() {
+        await fetch('/reset_transform', { method: 'POST' });
+        document.getElementById('transform-state').textContent = 'Reset done';
+    }
+
+    // ── Feed error recovery ─────────────────────────────────
+    function handleFeedError(img, url) {
+        setTimeout(() => { img.src = url + '?t=' + Date.now(); }, 1500);
+    }
+</script>
+{% endblock %}

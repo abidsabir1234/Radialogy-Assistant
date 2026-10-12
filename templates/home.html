@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+{% block title %}Radiology Assistant — Gesture-Controlled Radiology Imaging{% endblock %}
+
+{% block content %}
+
+<!-- ══ HERO ════════════════════════════════════════════════ -->
+<section class="hero">
+    <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-orb orb1"></div>
+        <div class="hero-orb orb2"></div>
+        <div class="scan-ring r1"></div>
+        <div class="scan-ring r2"></div>
+        <div class="scan-ring r3"></div>
+    </div>
+
+    <div class="hero-body">
+        <div class="hero-left">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Live · MobileNetV2 · MediaPipe · 99%+ Accuracy
+            </div>
+            <h1 class="hero-title">
+                Touch-Free<br>
+                <span class="gradient-text">Radiology Imaging</span><br>
+                With AI Gestures
+            </h1>
+            <p class="hero-sub">
+                Control MRI & X-Ray scans with just your hand — no keyboard, no mouse, no touch required.
+                8-gesture AI system trained on 20,000+ hand images, running live on your webcam.
+            </p>
+            <div class="hero-actions">
+                {% if session.user %}
+                <a href="{{ url_for('main.dashboard') }}" class="btn-primary btn-lg">
+                    <i class="fa-solid fa-chart-line"></i> Open Dashboard
+                </a>
+                {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn-primary btn-lg">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Get Started
+                </a>
+                <a href="{{ url_for('main.about') }}" class="btn-ghost btn-lg">
+                    Learn More <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                {% endif %}
+            </div>
+            <div class="hero-tech-badges">
+                <span class="tech-badge"><i class="fa-solid fa-brain"></i> MobileNetV2</span>
+                <span class="tech-badge"><i class="fa-solid fa-hand"></i> MediaPipe</span>
+                <span class="tech-badge"><i class="fa-solid fa-bolt"></i> Real-Time</span>
+                <span class="tech-badge"><i class="fa-solid fa-shield-halved"></i> Touch-Free</span>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="scan-viewer">
+                <div class="scan-viewer-header">
+                    <span class="scan-dot red"></span>
+                    <span class="scan-dot yellow"></span>
+                    <span class="scan-dot green"></span>
+                    <span class="scan-viewer-title"><i class="fa-solid fa-x-ray"></i> Scan Viewer — Live</span>
+                </div>
+                <div class="scan-viewer-body">
+                    <div class="scan-crosshair"></div>
+                    <div class="scan-lines"></div>
+                    <div class="scan-circle c1"></div>
+                    <div class="scan-circle c2"></div>
+                    <div class="scan-circle c3"></div>
+                    <div class="scan-label tl">AXIAL</div>
+                    <div class="scan-label tr">T1-W</div>
+                    <div class="scan-label bl">0.5 mm</div>
+                    <div class="scan-label br">120 kV</div>
+                    <div class="scan-sweep"></div>
+                    <div class="scan-center-dot"></div>
+                </div>
+                <div class="scan-viewer-footer">
+                    <span class="scan-stat"><i class="fa-solid fa-wifi"></i> Gesture: <strong>DETECTING…</strong></span>
+                    <span class="scan-stat accent"><i class="fa-solid fa-circle-check"></i> AI Active</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ STATS BAR ══════════════════════════════════════════ -->
+<section class="stats-bar">
+    <div class="stats-inner">
+        <div class="stat-item">
+            <div class="stat-num gradient-text">99.67%</div>
+            <div class="stat-label">Model Accuracy</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-num gradient-text">8</div>
+            <div class="stat-label">Hand Gestures</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-num gradient-text">30 fps</div>
+            <div class="stat-label">Real-Time Detection</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-num gradient-text">21</div>
+            <div class="stat-label">Hand Landmarks</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-num gradient-text">0ms</div>
+            <div class="stat-label">Touch Latency</div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ FEATURES ═══════════════════════════════════════════ -->
+<section class="section features-section">
+    <div class="section-inner">
+        <div class="section-label">CAPABILITIES</div>
+        <h2 class="section-title-lg">Everything You Need for<br><span class="gradient-text">Touch-Free Radiology</span></h2>
+        <p class="section-sub">Combining deep learning gesture recognition with real-time image processing for a sterile, intuitive radiology workflow.</p>
+
+        <div class="features-grid">
+            <div class="feature-card featured">
+                <div class="feature-icon-wrap primary">
+                    <i class="fa-solid fa-hand-sparkles"></i>
+                </div>
+                <h3>Landmark-Based Gestures</h3>
+                <p>21 MediaPipe hand keypoints classify your gesture in real-time — works in any lighting, background, or camera angle. Zero domain gap.</p>
+                <div class="feature-tag">Core Technology</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap accent">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </div>
+                <h3>Zoom In / Out</h3>
+                <p>Point your index finger to zoom into an area of interest, or raise 4 fingers to zoom back out — instantly.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap warn">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+                <h3>Brightness Control</h3>
+                <p>Thumb up increases brightness continuously. Pinky up decreases it. Fine-tune any scan exposure with natural gestures.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap info">
+                    <i class="fa-solid fa-rotate"></i>
+                </div>
+                <h3>Image Rotation</h3>
+                <p>V-sign rotates the scan continuously. Hold the gesture to keep rotating, release to stop.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap accent">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </div>
+                <h3>Grayscale Toggle</h3>
+                <p>Open palm instantly toggles grayscale mode — essential for reading X-rays under different display conditions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap primary">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h3>Gaussian Blur</h3>
+                <p>3-finger gesture applies a Gaussian blur to reduce noise and focus on key anatomical structures.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ HOW IT WORKS ═══════════════════════════════════════ -->
+<section class="section how-section">
+    <div class="section-inner">
+        <div class="section-label">WORKFLOW</div>
+        <h2 class="section-title-lg">How It Works in<br><span class="gradient-text">3 Simple Steps</span></h2>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <div class="step-icon"><i class="fa-solid fa-upload"></i></div>
+                <h3>Upload Your Scan</h3>
+                <p>Upload any MRI, X-Ray, CT scan, or medical image (JPEG, PNG, TIFF, BMP). The system accepts all standard radiology formats.</p>
+                <div class="step-tag">DICOM-ready workflow</div>
+            </div>
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <div class="step-icon"><i class="fa-solid fa-camera"></i></div>
+                <h3>Face Your Webcam</h3>
+                <p>Your webcam activates automatically. MediaPipe tracks 21 hand landmarks in real-time — no special hardware needed.</p>
+                <div class="step-tag">Works on any webcam</div>
+            </div>
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <div class="step-icon"><i class="fa-solid fa-hand"></i></div>
+                <h3>Control With Gestures</h3>
+                <p>Show any of 8 gestures to instantly zoom, rotate, adjust brightness, toggle grayscale, or reset — completely hands-free from the keyboard.</p>
+                <div class="step-tag">8 distinct gestures</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ GESTURE SHOWCASE ═══════════════════════════════════ -->
+<section class="section gesture-showcase-section">
+    <div class="section-inner">
+        <div class="section-label">GESTURE REFERENCE</div>
+        <h2 class="section-title-lg">8 Gestures,<br><span class="gradient-text">8 Powerful Actions</span></h2>
+        <p class="section-sub">All detected live from your webcam using MediaPipe's 21-point hand landmark model.</p>
+
+        <div class="showcase-grid">
+            {% set gestures = [
+                ('BRIGHT_UP',   'Thumb Up',          'Brightness ▲',       'primary', 'Raise scan exposure instantly',   'png'),
+                ('BRIGHT_DOWN', 'Pinky Up',          'Brightness ▼',       'primary', 'Lower scan exposure',             'png'),
+                ('ZERO',        'Closed Fist',       'Reset All',          'accent',  'Reset zoom, rotation & brightness','png'),
+                ('ONE',         'Index Finger',      'Zoom In',            'info',    'Zoom into region of interest',     'png'),
+                ('TWO',         'V-Sign',            'Rotate +2°',         'info',    'Hold to continuously rotate',      'png'),
+                ('THREE',       '3 Fingers Up',      'Gaussian Blur',      'warn',    'Reduce image noise & artifacts',   'png'),
+                ('FOUR',        '4 Fingers Up',      'Zoom Out',           'info',    'Zoom back to full view',           'png'),
+                ('FIVE',        'Open Palm',         'Grayscale Toggle',   'warn',    'Toggle monochrome X-Ray mode',     'png'),
+            ] %}
+            {% for cls, hand, action, color, desc, ext in gestures %}
+            <div class="showcase-card">
+                <div class="showcase-img-wrap">
+                    <img class="showcase-gesture-img {% if ext == 'png' %}gesture-photo{% endif %}"
+                         src="{{ url_for('static', filename='images/gestures/gesture_' + cls.lower() + '.' + ext) }}?v=2"
+                         alt="{{ hand }}">
+                </div>
+                <div class="showcase-gesture {{ color }}">{{ cls }}</div>
+                <div class="showcase-hand">{{ hand }}</div>
+                <div class="showcase-action">{{ action }}</div>
+                <div class="showcase-desc">{{ desc }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ══ SCAN TYPES ═════════════════════════════════════════ -->
+<section class="section scantypes-section">
+    <div class="section-inner">
+        <div class="section-label">SUPPORTED IMAGING</div>
+        <h2 class="section-title-lg">Works With All<br><span class="gradient-text">Radiology Scan Types</span></h2>
+
+        <div class="scantype-grid">
+            <div class="scantype-card scantype-img-card">
+                <div class="scantype-img-wrap">
+                    <img src="{{ url_for('static', filename='images/scan_mri.jpg') }}"
+                         alt="Brain MRI Scan" class="scantype-img">
+                    <div class="scantype-img-overlay">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                </div>
+                <div class="scantype-body">
+                    <div class="scantype-name">MRI Scans</div>
+                    <div class="scantype-desc">Brain, spine, joint and soft tissue MRI imaging</div>
+                </div>
+            </div>
+            <div class="scantype-card scantype-img-card">
+                <div class="scantype-img-wrap">
+                    <img src="{{ url_for('static', filename='images/scan_xray.jpg') }}"
+                         alt="Chest X-Ray" class="scantype-img">
+                    <div class="scantype-img-overlay">
+                        <i class="fa-solid fa-lungs"></i>
+                    </div>
+                </div>
+                <div class="scantype-body">
+                    <div class="scantype-name">Chest X-Rays</div>
+                    <div class="scantype-desc">Pulmonary, cardiac and thoracic X-ray analysis</div>
+                </div>
+            </div>
+            <div class="scantype-card scantype-img-card">
+                <div class="scantype-img-wrap">
+                    <img src="{{ url_for('static', filename='images/scan_ct.jpg') }}"
+                         alt="CT Scan" class="scantype-img">
+                    <div class="scantype-img-overlay">
+                        <i class="fa-solid fa-bone"></i>
+                    </div>
+                </div>
+                <div class="scantype-body">
+                    <div class="scantype-name">CT Scans</div>
+                    <div class="scantype-desc">Axial, coronal and sagittal CT cross-sections</div>
+                </div>
+            </div>
+            <div class="scantype-card scantype-img-card">
+                <div class="scantype-img-wrap">
+                    <img src="{{ url_for('static', filename='images/scan_ultrasound.jpg') }}"
+                         alt="Ultrasound" class="scantype-img">
+                    <div class="scantype-img-overlay">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                </div>
+                <div class="scantype-body">
+                    <div class="scantype-name">Ultrasound</div>
+                    <div class="scantype-desc">Abdominal, cardiac and vascular ultrasound</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ CTA ════════════════════════════════════════════════ -->
+<section class="cta-section">
+    <div class="cta-bg">
+        <div class="hero-orb orb1" style="opacity:0.15"></div>
+        <div class="hero-orb orb2" style="opacity:0.1"></div>
+    </div>
+    <div class="cta-inner">
+        <div class="section-label">GET STARTED</div>
+        <h2 class="cta-title">Ready to Experience<br><span class="gradient-text">Gesture-Controlled Imaging?</span></h2>
+        <p class="cta-sub">Create a free account and upload your first scan in under 60 seconds.</p>
+        <div class="cta-actions">
+            {% if session.user %}
+            <a href="{{ url_for('main.dashboard') }}" class="btn-primary btn-xl">
+                <i class="fa-solid fa-chart-line"></i> Open Dashboard
+            </a>
+            {% else %}
+            <a href="{{ url_for('auth.signup') }}" class="btn-primary btn-xl">
+                <i class="fa-solid fa-user-plus"></i> Create Free Account
+            </a>
+            <a href="{{ url_for('main.contact') }}" class="btn-ghost btn-lg">
+                <i class="fa-solid fa-envelope"></i> Contact Us
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

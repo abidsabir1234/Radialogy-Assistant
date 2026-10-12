@@ -1,0 +1,32 @@
+<svg viewBox="0 0 140 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fG" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#62caff"/><stop offset="1" stop-color="#1a72d0"/></linearGradient>
+    <linearGradient id="palmG" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1e3d5c"/><stop offset="1" stop-color="#0d1f33"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="140" height="190" rx="18" fill="#060c14"/>
+  <radialGradient id="bgG" cx="50%" cy="38%" r="42%"><stop stop-color="#0f2a48" stop-opacity="0.6"/><stop offset="1" stop-color="#060c14" stop-opacity="0"/></radialGradient>
+  <rect width="140" height="190" rx="18" fill="url(#bgG)"/>
+  <!-- Wrist -->
+  <rect x="47" y="157" width="46" height="28" rx="11" fill="#0d1e30"/>
+  <!-- Palm -->
+  <rect x="18" y="88" width="104" height="78" rx="18" fill="url(#palmG)"/>
+  <rect x="26" y="92" width="88" height="28" rx="12" fill="rgba(255,255,255,0.03)"/>
+  <!-- INDEX finger extended -->
+  <rect x="30" y="12" width="20" height="88" rx="10" fill="url(#fG)" filter="url(#glow)"/>
+  <rect x="33.5" y="14" width="13" height="12" rx="5.5" fill="rgba(220,240,255,0.28)"/>
+  <rect x="30" y="56" width="20" height="2" rx="1" fill="rgba(0,0,0,0.18)"/>
+  <rect x="30" y="72" width="20" height="2" rx="1" fill="rgba(0,0,0,0.15)"/>
+  <!-- MIDDLE finger extended -->
+  <rect x="53" y="6" width="20" height="94" rx="10" fill="url(#fG)" filter="url(#glow)"/>
+  <rect x="56.5" y="8" width="13" height="12" rx="5.5" fill="rgba(220,240,255,0.28)"/>
+  <rect x="53" y="54" width="20" height="2" rx="1" fill="rgba(0,0,0,0.18)"/>
+  <rect x="53" y="70" width="20" height="2" rx="1" fill="rgba(0,0,0,0.15)"/>
+  <!-- Ring + Pinky curled -->
+  <rect x="74" y="76" width="20" height="22" rx="10" fill="#1a3450"/>
+  <rect x="95" y="82" width="17" height="18" rx="8.5" fill="#192e48"/>
+  <!-- Thumb curled -->
+  <rect x="12" y="102" width="14" height="34" rx="7" fill="#152840"/>
+  <!-- Glow area behind fingers -->
+  <rect x="22" y="6" width="59" height="94" rx="14" fill="rgba(59,158,255,0.05)"/>
+</svg>

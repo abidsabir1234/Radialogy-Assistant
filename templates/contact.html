@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block title %}Contact — Radiology Assistant{% endblock %}
+
+{% block content %}
+
+<!-- ══ PAGE HERO ══════════════════════════════════════════ -->
+<section class="page-hero">
+    <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-orb orb1"></div>
+        <div class="hero-orb orb2"></div>
+    </div>
+    <div class="page-hero-inner">
+        <div class="section-label">GET IN TOUCH</div>
+        <h1 class="page-hero-title">Contact<br><span class="gradient-text">Radiology Assistant</span></h1>
+        <p class="page-hero-sub">Have questions about the project, want to collaborate, or need support? We'd love to
+            hear from you.</p>
+    </div>
+</section>
+
+<!-- ══ CONTACT BODY ═══════════════════════════════════════ -->
+<section class="section contact-section">
+    <div class="section-inner contact-inner">
+
+        <!-- Left: Info Cards -->
+        <div class="contact-info">
+            <h2 class="contact-info-title">How Can We Help?</h2>
+            <p class="contact-info-sub">Reach out for project queries, collaboration proposals, or technical support.
+            </p>
+
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-card-icon primary"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="contact-card-body">
+                        <div class="contact-card-title">Academic Enquiries</div>
+                        <div class="contact-card-desc">Questions about the research methodology, dataset, or model
+                            architecture.</div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon accent"><i class="fa-solid fa-hospital"></i></div>
+                    <div class="contact-card-body">
+                        <div class="contact-card-title">Clinical Collaboration</div>
+                        <div class="contact-card-desc">Interested in deploying gesture-controlled imaging in your
+                            institution.</div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon info"><i class="fa-solid fa-bug"></i></div>
+                    <div class="contact-card-body">
+                        <div class="contact-card-title">Technical Support</div>
+                        <div class="contact-card-desc">Issues with installation, gesture detection, or the dashboard UI.
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon warn"><i class="fa-solid fa-handshake"></i></div>
+                    <div class="contact-card-body">
+                        <div class="contact-card-title">Project Collaboration</div>
+                        <div class="contact-card-desc">Extend or build on top of this open final year project.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-detail-row">
+                <div class="contact-detail">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>abisabir@gmail.com</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fa-brands fa-github"></i>
+                    <span>github.com/abidsabir1234</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="contact-form-wrap">
+            {% if sent %}
+            <div class="contact-success">
+                <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <h3>Message Sent!</h3>
+                <p>Thank you for reaching out. We'll get back to you as soon as possible.</p>
+                <a href="{{ url_for('main.contact') }}" class="btn-outline-sm" style="margin-top:1rem">
+                    <i class="fa-solid fa-arrow-left"></i> Send Another
+                </a>
+            </div>
+            {% else %}
+            <form method="POST" class="contact-form" id="contact-form">
+                <h3 class="contact-form-title">Send Us a Message</h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <div class="input-wrap">
+                            <i class="fa-solid fa-user input-icon"></i>
+                            <input type="text" name="name" class="form-input" placeholder="Abid Sabir" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <div class="input-wrap">
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                            <input type="email" name="email" class="form-input" placeholder="abidsabir@gmail.com"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <div class="input-wrap">
+                        <i class="fa-solid fa-tag input-icon"></i>
+                        <select name="subject" class="form-input form-select">
+                            <option value="">Select a subject…</option>
+                            <option>Academic / Research Enquiry</option>
+                            <option>Clinical Collaboration</option>
+                            <option>Technical Support</option>
+                            <option>Project Collaboration</option>
+                            <option>General Question</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea name="message" class="form-input form-textarea"
+                        placeholder="Describe your query or feedback in detail…" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary full-width" style="margin-top:0.5rem">
+                    <i class="fa-solid fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- ══ FAQ ═══════════════════════════════════════════════ -->
+<section class="section alt-section">
+    <div class="section-inner">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title-lg">Common<br><span class="gradient-text">Questions</span></h2>
+
+        <div class="faq-grid">
+            <div class="faq-card">
+                <div class="faq-q"><i class="fa-solid fa-circle-question"></i> Do I need a special camera?</div>
+                <div class="faq-a">No. Any standard USB or built-in webcam works. MediaPipe's hand landmark detection
+                    runs on a regular 640×480 feed.</div>
+            </div>
+            <div class="faq-card">
+                <div class="faq-q"><i class="fa-solid fa-circle-question"></i> What image formats are supported?</div>
+                <div class="faq-a">JPEG, PNG, BMP, TIFF, WebP, GIF, JFIF, and JPE. Essentially any standard medical
+                    image format that isn't raw DICOM.</div>
+            </div>
+            <div class="faq-card">
+                <div class="faq-q"><i class="fa-solid fa-circle-question"></i> How accurate is gesture detection?</div>
+                <div class="faq-a">The landmark-based classifier is extremely reliable — it uses geometric finger
+                    distances rather than image patterns, so it works in any lighting and background.</div>
+            </div>
+            <div class="faq-card">
+                <div class="faq-q"><i class="fa-solid fa-circle-question"></i> Does it work on mobile?</div>
+                <div class="faq-a">The web UI is responsive, but gesture processing requires a webcam and runs
+                    server-side on Python/Flask — so a laptop or desktop is recommended.</div>
+            </div>
+            <div class="faq-card">
+                <div class="faq-q"><i class="fa-solid fa-circle-question"></i> Is patient data stored?</div>
+                <div class="faq-a">No patient data is stored. The uploaded scan is held in memory for the session and
+                    overwritten with each new upload. Only user account credentials are stored in MongoDB.</div>
+            </div>
+            <div class="faq-card">
+                <div class="faq-q"><i class="fa-solid fa-circle-question"></i> Can I retrain the model?</div>
+                <div class="faq-a">Yes. The training notebook (Google Colab) uses the LeapGestRecog dataset with
+                    MobileNetV2. You can adapt it to your own gesture set and replace gesture_v2.h5.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

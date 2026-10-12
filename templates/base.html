@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Radiology Assistant{% endblock %}</title>
+    <meta name="description" content="AI-powered radiology imaging assistant with real-time hand gesture control">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- ── Navbar ─────────────────────────────────────────────── -->
+    <nav class="navbar" id="navbar">
+        <a href="{{ url_for('main.home') }}" class="nav-brand">
+            <div class="nav-logo-icon">
+                <i class="fa-solid fa-radiation"></i>
+            </div>
+            <span>Radiology <span class="brand-accent">Assistant</span></span>
+        </a>
+
+        <div class="nav-links">
+            <a href="{{ url_for('main.home') }}"
+                class="nav-link {% if request.endpoint == 'main.home' %}active{% endif %}">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+            {% if session.user %}
+            <a href="{{ url_for('main.dashboard') }}"
+                class="nav-link {% if request.endpoint == 'main.dashboard' %}active{% endif %}">
+                <i class="fa-solid fa-chart-line"></i> Dashboard
+            </a>
+            {% endif %}
+            <a href="{{ url_for('main.about') }}"
+                class="nav-link {% if request.endpoint == 'main.about' %}active{% endif %}">
+                <i class="fa-solid fa-circle-info"></i> About
+            </a>
+            <a href="{{ url_for('main.contact') }}"
+                class="nav-link {% if request.endpoint == 'main.contact' %}active{% endif %}">
+                <i class="fa-solid fa-envelope"></i> Contact
+            </a>
+        </div>
+
+        <div class="nav-right">
+            {% if session.user %}
+            <div class="user-chip">
+                <div class="user-avatar">{{ session.user.name[0].upper() }}</div>
+                <span>{{ session.user.name }}</span>
+            </div>
+            <a href="{{ url_for('auth.logout') }}" class="btn-outline-sm">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}" class="btn-outline-sm">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
+            </a>
+            <a href="{{ url_for('auth.signup') }}" class="btn-primary btn-sm">
+                <i class="fa-solid fa-user-plus"></i> Sign Up
+            </a>
+            {% endif %}
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile nav overlay -->
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="{{ url_for('main.home') }}" class="mobile-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+        {% if session.user %}
+        <a href="{{ url_for('main.dashboard') }}" class="mobile-nav-link"><i class="fa-solid fa-chart-line"></i>
+            Dashboard</a>
+        {% endif %}
+        <a href="{{ url_for('main.about') }}" class="mobile-nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
+        <a href="{{ url_for('main.contact') }}" class="mobile-nav-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+        {% if not session.user %}
+        <a href="{{ url_for('auth.login') }}" class="mobile-nav-link"><i class="fa-solid fa-arrow-right-to-bracket"></i>
+            Login</a>
+        <a href="{{ url_for('auth.signup') }}" class="mobile-nav-link accent"><i class="fa-solid fa-user-plus"></i> Sign
+            Up</a>
+        {% endif %}
+    </div>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ── Footer ─────────────────────────────────────────────── -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="nav-logo-icon small">
+                    <i class="fa-solid fa-radiation"></i>
+                </div>
+                <div>
+                    <div class="footer-name">Radiology <span class="brand-accent">Assistant</span></div>
+                    <div class="footer-tagline">AI-Powered Gesture Radiology Assistant</div>
+                </div>
+            </div>
+
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <div class="footer-col-title">Navigation</div>
+                    <a href="{{ url_for('main.home') }}">Home</a>
+                    <a href="{{ url_for('main.about') }}">About</a>
+                    <a href="{{ url_for('main.contact') }}">Contact</a>
+                    {% if session.user %}
+                    <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                    {% else %}
+                    <a href="{{ url_for('auth.login') }}">Login</a>
+                    {% endif %}
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Technology</div>
+                    <span>MobileNetV2 CNN</span>
+                    <span>MediaPipe Landmarks</span>
+                    <span>TensorFlow 2.x</span>
+                    <span>Flask + MongoDB</span>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Gestures</div>
+                    <span>8 Hand Gestures</span>
+                    <span>Real-time Detection</span>
+                    <span>Touch-Free Control</span>
+                    <span>MRI & X-Ray Support</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Radiology Assistant — Final Year Project</span>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('nav-hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240">
+  <defs>
+    <radialGradient id="bgGlow4" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0d1f3c"/>
+      <stop offset="100%" stop-color="#050d1a"/>
+    </radialGradient>
+    <linearGradient id="skinGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5c5a3"/>
+      <stop offset="50%" stop-color="#e8a882"/>
+      <stop offset="100%" stop-color="#d4896a"/>
+    </linearGradient>
+    <filter id="shadow4">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#00b4d8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="200" height="240" fill="url(#bgGlow4)" rx="16"/>
+  <ellipse cx="100" cy="200" rx="70" ry="30" fill="#00b4d8" opacity="0.08"/>
+
+  <!-- Palm -->
+  <path d="M 52 155 Q 48 200 55 225 Q 100 235 145 225 Q 152 200 148 155 Q 140 148 100 146 Q 60 148 52 155 Z"
+        fill="url(#skinGrad4)" filter="url(#shadow4)"/>
+
+  <!-- Thumb (curled) -->
+  <path d="M 52 165 Q 40 158 38 148 Q 40 140 48 142 Q 54 145 56 155"
+        fill="#b8714f" stroke="#c07850" stroke-width="0.8"/>
+
+  <!-- Index Finger -->
+  <rect x="52" y="55" width="20" height="100" rx="10" fill="url(#skinGrad4)" filter="url(#shadow4)"/>
+  <ellipse cx="62" cy="58" rx="10" ry="8" fill="#f5c5a3" stroke="#d4896a" stroke-width="0.8"/>
+
+  <!-- Middle Finger -->
+  <rect x="75" y="42" width="20" height="113" rx="10" fill="url(#skinGrad4)" filter="url(#shadow4)"/>
+  <ellipse cx="85" cy="45" rx="10" ry="8" fill="#f5c5a3" stroke="#d4896a" stroke-width="0.8"/>
+
+  <!-- Ring Finger -->
+  <rect x="98" y="50" width="20" height="105" rx="10" fill="url(#skinGrad4)" filter="url(#shadow4)"/>
+  <ellipse cx="108" cy="53" rx="10" ry="8" fill="#f5c5a3" stroke="#d4896a" stroke-width="0.8"/>
+
+  <!-- Pinky Finger -->
+  <rect x="121" y="70" width="18" height="85" rx="9" fill="url(#skinGrad4)" filter="url(#shadow4)"/>
+  <ellipse cx="130" cy="73" rx="9" ry="7" fill="#f5c5a3" stroke="#d4896a" stroke-width="0.8"/>
+
+  <ellipse cx="62" cy="56" rx="8" ry="5" fill="#00b4d8" opacity="0.12"/>
+  <ellipse cx="85" cy="43" rx="8" ry="5" fill="#00b4d8" opacity="0.12"/>
+  <ellipse cx="108" cy="51" rx="8" ry="5" fill="#00b4d8" opacity="0.12"/>
+  <ellipse cx="130" cy="71" rx="7" ry="4" fill="#00b4d8" opacity="0.12"/>
+</svg>

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up — Radiology Assistant{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-logo">
+            <i class="fa-solid fa-radiation"></i>
+        </div>
+        <h2 class="auth-title">Create Account</h2>
+        <p class="auth-sub">Join Radiology Assistant and take control of your scans</p>
+
+        {% if error %}
+        <div class="alert alert-error">
+            <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+        </div>
+        {% endif %}
+        {% if success %}
+        <div class="alert alert-success">
+            <i class="fa-solid fa-circle-check"></i> {{ success }}
+            <a href="{{ url_for('auth.login') }}">Login now →</a>
+        </div>
+        {% endif %}
+
+        <form method="POST" class="auth-form" id="signup-form">
+            <div class="form-group">
+                <label for="name" class="form-label">Full Name</label>
+                <div class="input-wrap">
+                    <i class="fa-solid fa-user-doctor input-icon"></i>
+                    <input type="text" name="name" id="name"
+                           class="form-input" placeholder="Dr. Firstname Lastname" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <div class="input-wrap">
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                    <input type="email" name="email" id="email"
+                           class="form-input" placeholder="doctor@hospital.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-wrap">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" name="password" id="password"
+                           class="form-input" placeholder="min. 8 characters" required minlength="8">
+                </div>
+            </div>
+            <button type="submit" class="btn-primary full-width" id="signup-btn">
+                <i class="fa-solid fa-user-plus"></i> Create Account
+            </button>
+        </form>
+
+        <p class="auth-switch">
+            Already have an account?
+            <a href="{{ url_for('auth.login') }}">Sign in</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

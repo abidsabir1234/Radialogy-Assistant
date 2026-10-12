@@ -1,0 +1,34 @@
+<svg viewBox="0 0 140 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fG" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#62caff"/><stop offset="1" stop-color="#1a72d0"/></linearGradient>
+    <linearGradient id="palmG" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1e3d5c"/><stop offset="1" stop-color="#0d1f33"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="140" height="190" rx="18" fill="#060c14"/>
+  <radialGradient id="bgG" cx="70%" cy="38%" r="38%"><stop stop-color="#0f2a48" stop-opacity="0.7"/><stop offset="1" stop-color="#060c14" stop-opacity="0"/></radialGradient>
+  <rect width="140" height="190" rx="18" fill="url(#bgG)"/>
+  <!-- Wrist -->
+  <rect x="47" y="157" width="46" height="28" rx="11" fill="#0d1e30"/>
+  <!-- Palm (fist) -->
+  <rect x="20" y="90" width="100" height="76" rx="18" fill="url(#palmG)"/>
+  <rect x="28" y="94" width="84" height="26" rx="12" fill="rgba(255,255,255,0.03)"/>
+  <!-- Index curled -->
+  <rect x="29" y="80" width="19" height="20" rx="9.5" fill="#1c3756"/>
+  <!-- Middle curled -->
+  <rect x="51" y="74" width="19" height="22" rx="9.5" fill="#1c3756"/>
+  <!-- Ring curled -->
+  <rect x="73" y="80" width="19" height="20" rx="9.5" fill="#1a3450"/>
+  <!-- Knuckle line -->
+  <rect x="29" y="86" width="64" height="2" rx="1" fill="rgba(59,158,255,0.08)"/>
+  <!-- Thumb curled (small bump left) -->
+  <rect x="12" y="106" width="14" height="30" rx="7" fill="#152840"/>
+  <!-- PINKY extended (BLUE) -->
+  <rect x="96" y="16" width="16" height="86" rx="8" fill="url(#fG)" filter="url(#glow)"/>
+  <!-- Pinky nail -->
+  <rect x="98.5" y="18" width="11" height="11" rx="4.5" fill="rgba(220,240,255,0.30)"/>
+  <!-- Pinky joint lines -->
+  <rect x="96" y="58" width="16" height="2" rx="1" fill="rgba(0,0,0,0.18)"/>
+  <rect x="96" y="74" width="16" height="2" rx="1" fill="rgba(0,0,0,0.15)"/>
+  <!-- Glow behind pinky -->
+  <rect x="88" y="10" width="36" height="90" rx="12" fill="rgba(59,158,255,0.06)"/>
+</svg>

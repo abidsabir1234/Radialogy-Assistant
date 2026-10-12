@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% block title %}About — Radiology Assistant{% endblock %}
+
+{% block content %}
+
+<!-- ══ PAGE HERO ═════════════════════════════════════════ -->
+<section class="page-hero">
+    <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-orb orb1"></div>
+        <div class="hero-orb orb2"></div>
+    </div>
+    <div class="page-hero-inner">
+        <div class="section-label">ABOUT THE PROJECT</div>
+        <h1 class="page-hero-title">AI-Powered<br><span class="gradient-text">Radiology Assistant</span></h1>
+        <p class="page-hero-sub">A Final Year Project combining deep learning, computer vision, and medical imaging to create a touch-free radiology workflow for clinical environments.</p>
+    </div>
+</section>
+
+<!-- ══ MISSION ═══════════════════════════════════════════ -->
+<section class="section">
+    <div class="section-inner two-col-section">
+        <div class="two-col-text">
+            <div class="section-label">OUR MISSION</div>
+            <h2 class="section-title-lg"><span class="gradient-text">Why We Built This</span></h2>
+            <p class="body-text">
+                In clinical radiology environments, radiologists and physicians must frequently manipulate
+                scan images — zooming, rotating, adjusting brightness — while maintaining sterile conditions.
+                Traditional mouse and keyboard input is a contamination risk in operating rooms and
+                examination suites.
+            </p>
+            <p class="body-text">
+                Radiology Assistant solves this by enabling complete touchless control of medical imaging through
+                natural hand gestures captured by a standard webcam. No special hardware. No physical contact.
+                Just your hand in front of the camera.
+            </p>
+            <div class="check-list">
+                <div class="check-item"><i class="fa-solid fa-circle-check"></i> Sterile, touch-free operation</div>
+                <div class="check-item"><i class="fa-solid fa-circle-check"></i> Works with any standard webcam</div>
+                <div class="check-item"><i class="fa-solid fa-circle-check"></i> Real-time, low-latency response</div>
+                <div class="check-item"><i class="fa-solid fa-circle-check"></i> No special training required</div>
+            </div>
+        </div>
+        <div class="two-col-visual">
+            <div class="about-visual-card">
+                <div class="avc-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="avc-title">Clinical Grade</div>
+                <div class="avc-sub">Designed for radiology suites, operating rooms, and diagnostic centers</div>
+                <div class="avc-divider"></div>
+                <div class="avc-stats">
+                    <div class="avc-stat">
+                        <div class="avc-stat-num gradient-text">99.67%</div>
+                        <div class="avc-stat-label">Val Accuracy</div>
+                    </div>
+                    <div class="avc-stat">
+                        <div class="avc-stat-num gradient-text">30fps</div>
+                        <div class="avc-stat-label">Detection Rate</div>
+                    </div>
+                    <div class="avc-stat">
+                        <div class="avc-stat-num gradient-text">21</div>
+                        <div class="avc-stat-label">Landmarks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ HOW THE AI WORKS ══════════════════════════════════ -->
+<section class="section alt-section">
+    <div class="section-inner">
+        <div class="section-label">TECHNICAL ARCHITECTURE</div>
+        <h2 class="section-title-lg">How the AI<br><span class="gradient-text">Recognises Your Gesture</span></h2>
+
+        <div class="pipeline-grid">
+            <div class="pipeline-step">
+                <div class="pipeline-icon primary"><i class="fa-solid fa-camera"></i></div>
+                <div class="pipeline-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                <div class="pipeline-label">Webcam Frame</div>
+                <div class="pipeline-desc">640×480 @ 30fps live video capture</div>
+            </div>
+            <div class="pipeline-connector desktop-only"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="pipeline-step">
+                <div class="pipeline-icon accent"><i class="fa-solid fa-hand"></i></div>
+                <div class="pipeline-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                <div class="pipeline-label">MediaPipe</div>
+                <div class="pipeline-desc">Detects 21 hand landmarks in 3D space</div>
+            </div>
+            <div class="pipeline-connector desktop-only"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="pipeline-step">
+                <div class="pipeline-icon info"><i class="fa-solid fa-ruler"></i></div>
+                <div class="pipeline-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                <div class="pipeline-label">Distance Analysis</div>
+                <div class="pipeline-desc">Wrist-distance ratios classify finger extension</div>
+            </div>
+            <div class="pipeline-connector desktop-only"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="pipeline-step">
+                <div class="pipeline-icon warn"><i class="fa-solid fa-brain"></i></div>
+                <div class="pipeline-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                <div class="pipeline-label">Gesture Classifier</div>
+                <div class="pipeline-desc">Rule-based landmark classifier → gesture label</div>
+            </div>
+            <div class="pipeline-connector desktop-only"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="pipeline-step">
+                <div class="pipeline-icon primary"><i class="fa-solid fa-x-ray"></i></div>
+                <div class="pipeline-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                <div class="pipeline-label">Image Transform</div>
+                <div class="pipeline-desc">Real-time brightness, zoom, rotate, blur applied</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ TECH STACK ════════════════════════════════════════ -->
+<section class="section">
+    <div class="section-inner">
+        <div class="section-label">TECHNOLOGY STACK</div>
+        <h2 class="section-title-lg">Built With<br><span class="gradient-text">Industry-Standard Tools</span></h2>
+
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-icon primary"><i class="fa-solid fa-brain"></i></div>
+                <div class="tech-name">TensorFlow / Keras</div>
+                <div class="tech-role">Model Training & Inference</div>
+                <div class="tech-desc">MobileNetV2 CNN trained via transfer learning on the LeapGestRecog dataset. Two-phase training: top layers then fine-tuning.</div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon accent"><i class="fa-solid fa-hand"></i></div>
+                <div class="tech-name">MediaPipe</div>
+                <div class="tech-role">Hand Landmark Detection</div>
+                <div class="tech-desc">Google's Hand Landmarker Task API provides 21 3D keypoints per frame. Used as the primary gesture classifier — fully domain-independent.</div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon info"><i class="fa-solid fa-eye"></i></div>
+                <div class="tech-name">OpenCV</div>
+                <div class="tech-role">Image Processing</div>
+                <div class="tech-desc">Real-time brightness (HSV), Gaussian blur, rotation+zoom via affine transforms. Also handles camera capture and MJPEG streaming.</div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon warn"><i class="fa-brands fa-python"></i></div>
+                <div class="tech-name">Flask</div>
+                <div class="tech-role">Web Backend</div>
+                <div class="tech-desc">Lightweight Python web server. Serves MJPEG video streams, handles image upload, exposes JSON gesture status API at 10Hz.</div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon primary"><i class="fa-solid fa-database"></i></div>
+                <div class="tech-name">MongoDB</div>
+                <div class="tech-role">User Authentication</div>
+                <div class="tech-desc">Stores user accounts with bcrypt-hashed passwords. Session-based auth with 7-day persistent login via Flask sessions.</div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon accent"><i class="fa-solid fa-code"></i></div>
+                <div class="tech-name">MobileNetV2</div>
+                <div class="tech-role">CNN Backbone</div>
+                <div class="tech-desc">3.05M parameter model (96×96×3 RGB input). 99.67% validation accuracy on 8-class gesture dataset. Runs at 30fps on CPU.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ MODEL PERFORMANCE ═════════════════════════════════ -->
+<section class="section alt-section">
+    <div class="section-inner">
+        <div class="section-label">MODEL PERFORMANCE</div>
+        <h2 class="section-title-lg">Training Results &<br><span class="gradient-text">Accuracy Metrics</span></h2>
+
+        <div class="perf-grid">
+            <div class="perf-card">
+                <div class="perf-label">Phase 1 — Top Layers (12 epochs)</div>
+                <div class="perf-metrics">
+                    <div class="perf-metric">
+                        <div class="perf-bar-label">Train Accuracy</div>
+                        <div class="perf-bar-wrap"><div class="perf-bar-fill primary" style="width:99.3%"></div></div>
+                        <div class="perf-bar-val">99.3%</div>
+                    </div>
+                    <div class="perf-metric">
+                        <div class="perf-bar-label">Validation Accuracy</div>
+                        <div class="perf-bar-wrap"><div class="perf-bar-fill accent" style="width:99.97%"></div></div>
+                        <div class="perf-bar-val">99.97%</div>
+                    </div>
+                    <div class="perf-metric">
+                        <div class="perf-bar-label">Val Loss</div>
+                        <div class="perf-bar-wrap"><div class="perf-bar-fill info" style="width:0.5%"></div></div>
+                        <div class="perf-bar-val">0.00125</div>
+                    </div>
+                </div>
+            </div>
+            <div class="perf-card">
+                <div class="perf-label">Phase 2 — Fine-Tuning (6 epochs)</div>
+                <div class="perf-metrics">
+                    <div class="perf-metric">
+                        <div class="perf-bar-label">Train Accuracy</div>
+                        <div class="perf-bar-wrap"><div class="perf-bar-fill primary" style="width:98.4%"></div></div>
+                        <div class="perf-bar-val">98.4%</div>
+                    </div>
+                    <div class="perf-metric">
+                        <div class="perf-bar-label">Validation Accuracy</div>
+                        <div class="perf-bar-wrap"><div class="perf-bar-fill accent" style="width:99.67%"></div></div>
+                        <div class="perf-bar-val">99.67%</div>
+                    </div>
+                    <div class="perf-metric">
+                        <div class="perf-bar-label">Val Loss</div>
+                        <div class="perf-bar-wrap"><div class="perf-bar-fill info" style="width:1%"></div></div>
+                        <div class="perf-bar-val">0.00949</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="class-grid">
+            {% set classes = [
+                ('BRIGHT_DOWN', 'C-shape → Pinky up', 'primary'),
+                ('BRIGHT_UP',   'Thumbs up',           'primary'),
+                ('FIVE',        'Open palm',           'accent'),
+                ('FOUR',        '4 fingers',           'info'),
+                ('ONE',         'Index finger',        'info'),
+                ('THREE',       '3 fingers',           'warn'),
+                ('TWO',         'V-sign',              'info'),
+                ('ZERO',        'Closed fist',         'accent'),
+            ] %}
+            {% for cls, hand, color in classes %}
+            <div class="class-chip {{ color }}">
+                <span class="class-chip-name">{{ cls }}</span>
+                <span class="class-chip-hand">{{ hand }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ══ DATASET ═══════════════════════════════════════════ -->
+<section class="section">
+    <div class="section-inner">
+        <div class="section-label">TRAINING DATA</div>
+        <h2 class="section-title-lg">LeapGestRecog<br><span class="gradient-text">Dataset Overview</span></h2>
+
+        <div class="dataset-grid">
+            <div class="dataset-stat-card">
+                <i class="fa-solid fa-images" style="color:var(--primary)"></i>
+                <div class="ds-num gradient-text">20,000+</div>
+                <div class="ds-label">Total Images</div>
+            </div>
+            <div class="dataset-stat-card">
+                <i class="fa-solid fa-layer-group" style="color:var(--accent)"></i>
+                <div class="ds-num gradient-text">8</div>
+                <div class="ds-label">Gesture Classes</div>
+            </div>
+            <div class="dataset-stat-card">
+                <i class="fa-solid fa-person" style="color:var(--info)"></i>
+                <div class="ds-num gradient-text">10</div>
+                <div class="ds-label">Subjects</div>
+            </div>
+            <div class="dataset-stat-card">
+                <i class="fa-solid fa-scissors" style="color:var(--warn)"></i>
+                <div class="ds-num gradient-text">75/15/10</div>
+                <div class="ds-label">Train/Val/Test Split</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
